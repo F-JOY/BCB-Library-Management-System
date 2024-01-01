@@ -1,1 +1,192 @@
 @charset "UTF-8";
+body {
+      margin-top: 80px; 
+    }
+.logo{
+	height: 50px;
+	width: 250px;
+    padding-left: 50px;
+    
+}
+.login{
+	margin-left: auto;
+	margin-right: 50px;
+}
+.cta {
+ position: relative;
+ margin: auto;
+ padding: 12px 18px;
+ transition: all 0.2s ease;
+ border: none;
+ background: none;
+}
+
+.cta:before {
+ content: "";
+ position: absolute;
+ top: 0;
+ left: 0;
+ display: block;
+ border-radius: 50px;
+ background:#4B91F1;
+ width: 45px;
+ height: 45px;
+ transition: all 0.3s ease;
+}
+
+.cta span {
+ position: relative;
+ font-family: "Ubuntu", sans-serif;
+ font-size: 18px;
+ font-weight: 700;
+ letter-spacing: 0.05em;
+ color: #234567;
+}
+
+.cta svg {
+ position: relative;
+ top: 0;
+ margin-left: 10px;
+ fill: none;
+ stroke-linecap: round;
+ stroke-linejoin: round;
+ stroke: #234567;
+ stroke-width: 2;
+ transform: translateX(-5px);
+ transition: all 0.3s ease;
+}
+
+.cta:hover:before {
+ width: 100%;
+ background:#4B91F1;
+}
+
+.cta:hover svg {
+ transform: translateX(0);
+}
+
+.cta:active {
+ transform: scale(0.95);
+ }
+ 
+.home-hdr{
+	margin-top: 60px;
+	margin-left: 30px;
+	color: #4B91F1;
+}
+.home-txt{
+	margin-left: 20px;
+	margin-top: 10px;
+	font-weight:600;
+	 font-size: 22px;
+      line-height: 1.5;
+	color: #234567;
+}
+.home-image{
+	height: 500px;
+}
+.search-input {
+	height: 50px;
+  width: 65%; 
+  padding: 0.5em; 
+  margin: 10px 20px;
+  
+}
+.btn-search {
+  border: none;
+  display: block;
+  position: relative;
+  padding: 0.5em 2em  0.7em 1.5em;
+  font-size: 18px;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  color: royalblue;
+  z-index: 1;
+  font-family: inherit;
+  font-weight: 500;
+  
+}
+
+.span-search {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: -1;
+  border: 4px solid royalblue;
+}
+
+.span-search::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 8%;
+  height: 500%;
+  background: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-60deg);
+  transition: all 0.3s;
+}
+
+.btn-search:hover .span-search::before {
+  transform: translate(-50%, -50%) rotate(-90deg);
+  width: 100%;
+  background: royalblue;
+}
+
+.btn-search:hover {
+  color: white;
+}
+
+.btn-search:active .span-search::before {
+  background: #2751cd;
+}
+
+
+.home-icon{
+	height: 50px;
+	width: 50px;
+}
+.login-icon {
+	position: absolute;
+	left: 12px;
+	top:5px;
+	height: 40px;
+	width: 40px;
+	z-index: 1;
+}
+.login-container {
+  position: relative; 
+}
+
+
+.login-input {
+  height: 50px;
+  width: 100%;
+  padding-left: 60px;
+  background-color: transparent;
+}
+.row .col-md-3 {
+    display: flex;
+    align-items: center; 
+  }
+.login_cntct_icon{
+	height: 40px;
+	width: 40px;
+   
+}
+.login_cntct_a{
+	text-decoration: none;
+	font-weight: bold;
+	color: black;
+}
+
+
+
+
+
