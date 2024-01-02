@@ -1,6 +1,12 @@
 package Models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+
+import Utils.Connexion;
 
 public class Abonné {
 	  private int id_utilisateur;
@@ -8,6 +14,7 @@ public class Abonné {
 	    private String mot_de_pass;
 	    private String nom;
 	    private String prenom;
+	    private String genre;
 	    private String adresse;
 	    private String email;
 	    private String num_tel;
@@ -17,15 +24,16 @@ public class Abonné {
 	    private boolean paiement;
 		public Abonné() {	
 		}
+		
 		public Abonné(int id_utilisateur, String nom_utilisateur, String mot_de_pass, String nom, String prenom,
-				String adresse, String email, String num_tel, Date date_naiss, String type, boolean paiementSF,
-				boolean paiement) {
-			super();
+				String genre, String adresse, String email, String num_tel, Date date_naiss, String type,
+				boolean paiementSF, boolean paiement) {
 			this.id_utilisateur = id_utilisateur;
 			this.nom_utilisateur = nom_utilisateur;
 			this.mot_de_pass = mot_de_pass;
 			this.nom = nom;
 			this.prenom = prenom;
+			this.genre = genre;
 			this.adresse = adresse;
 			this.email = email;
 			this.num_tel = num_tel;
@@ -34,6 +42,7 @@ public class Abonné {
 			this.paiementSF = paiementSF;
 			this.paiement = paiement;
 		}
+
 		public int getId_utilisateur() {
 			return id_utilisateur;
 		}
@@ -63,6 +72,12 @@ public class Abonné {
 		}
 		public void setPrenom(String prenom) {
 			this.prenom = prenom;
+		}
+		public String getGenre() {
+			return genre;
+		}
+		public void setGenre(String genre) {
+			this.genre = genre;
 		}
 		public String getAdresse() {
 			return adresse;
@@ -107,5 +122,51 @@ public class Abonné {
 			this.paiement = paiement;
 		}
 		
+		
+		////////////////////////Connexion//////////////////////////
+		 public static Abonné verifyConnexion(String username, String password) {
+			 Connexion co = new Connexion();
+		        try (Connection conn = co.ConnectBdd()) {
+		            if (conn != null) {
+		                System.out.println("Connection successful!");
+		                String query = "SELECT * FROM `abonne` WHERE nom_utilisateur = ? AND mot_de_pass = ?";
+			            try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+			                preparedStatement.setString(1, username);
+			                preparedStatement.setString(2, password);
+			                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+			                    if (resultSet.next()) {
+			                    	 Abonné abonne = new Abonné();
+			                         abonne.setId_utilisateur(resultSet.getInt("id_utilisateur"));
+			                         abonne.setNom_utilisateur(resultSet.getString("nom_utilisateur"));
+			                         abonne.setMot_de_pass(resultSet.getString("mot_de_pass"));
+			                         abonne.setNom(resultSet.getString("nom"));
+			                         abonne.setPrenom(resultSet.getString("prenom"));
+			                         abonne.setGenre(resultSet.getString("genre"));
+			                         abonne.setAdresse(resultSet.getString("adresse"));
+			                         abonne.setEmail(resultSet.getString("email"));
+			                         abonne.setNum_tel(resultSet.getString("num_tel"));
+			                         abonne.setDate_naiss(resultSet.getDate("date_naiss"));
+			                         abonne.setType(resultSet.getString("type"));
+			                         abonne.setPaiementSF(resultSet.getBoolean("paiementSF"));
+			                         abonne.setPaiement(resultSet.getBoolean("paiement"));
+			                         return abonne;
+			                    }
+			                }
+			            }
+		               
+		            } else {
+		                System.out.println("Connection is null. Check your configuration.");
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		        return null;
+		    }
+		
+		 
+		 public static void main(String[] args) throws SQLException {
+			 
+			System.out.print(verifyConnexion("abonne1", "motdepasse1")); 
+		 }
 	    
 }
