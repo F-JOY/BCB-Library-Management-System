@@ -1,0 +1,24 @@
+@charset "UTF-8";
+.txtError{
+	color: red;
+	font-weight: bold;
+	margin-left: 20px;
+}
+.search_img{
+	height: 80px;
+	width: 80px;
+	
+	
+}
+.card {
+   border: 1px solid #4B91F1;
+   padding: 20px;
+   margin: 40px 30px;
+   text-align: center;
+  background-color: #93BCEC;
+        }
+.card img {
+   width: 120px;
+   height: 100px;
+   margin-bottom: 10px;
+ }
