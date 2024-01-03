@@ -22,3 +22,13 @@
    height: 100px;
    margin-bottom: 10px;
  }
+
+.search{
+    position: fixed;
+    margin-top: 90px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #fff;
+}

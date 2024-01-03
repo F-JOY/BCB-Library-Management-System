@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>Liste des resultats</title>
+    <title>Liste des Theses</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
    <link rel="stylesheet" href="../assets/style2.css">
      <link rel="stylesheet" href="../assets/style.css">
@@ -12,32 +12,33 @@
 <body>
 <div class="container-fluid mt-5 ">
 
-<h2 class="d-flex align-items-center justify-content-center home-hdr" style="margin: 0px; position: fixed; width: 100%">Liste des resultats</h2>
+<h2 class="d-flex align-items-center justify-content-center home-hdr" style="margin: 0px; position: fixed; width: 100%">Liste des Theses disponibles</h2>
 
 
 <div class="row">
  <div class="col-md-8 ">
  
     <table class="table table-hover  table-bordered mt-5 ms-4" border="1">
-        <thead style="position:sticky; top: 0;">
+        <thead>
             <tr>
                 <th>Code</th>
-                 <th>Type</th>
+                
                 <th>Titre</th>
                 
             </tr>
         </thead>
          <tbody>
         <%
-            List<Ouvrage> livres = (List<Ouvrage>) request.getAttribute("livres");
+            List<Ouvrage> livres = (List<Ouvrage>) request.getAttribute("theses");
             for (Ouvrage livre : livres) {
         %>
             <tr>
                 <td><%= livre.getId_ouvrage() %></td>
-                <td><%= livre.getType() %></td>
+                
                 <td><%= livre.getTitre() %></td>
             </tr>
              
+           
         <%
             }
         %>
