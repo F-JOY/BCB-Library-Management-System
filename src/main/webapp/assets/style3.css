@@ -1,1 +1,21 @@
 @charset "UTF-8";
+
+
+
+
+.account_img {
+	height: 60px;
+	width: 80px;
+	
+}
+.account{
+	text-align: end;
+	background-color:transparent;
+	border: none;
+	margin-left:1000Px ;
+}
+.navbar-nav .nav-item a:active,
+        .navbar-nav .nav-item a.active {
+            color: #4169e1; 
+            text-decoration: underline;
+        }

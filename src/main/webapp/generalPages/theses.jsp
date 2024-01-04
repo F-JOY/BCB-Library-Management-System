@@ -10,46 +10,71 @@
      <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-<div class="container-fluid mt-5 ">
+    <div class="container-fluid mt-4 " >
+        <div class="d-flex align-items-start justify-content-center mt-2">
+            <div class="d-flex align-items-center justify-content-between" style="width: 90%; border-bottom: 2px solid blue; background-color: #fff;">
+                <h2 class="home-hdr" style="margin: 0px;">Liste des Theses : </h2>
+                <a href="search.html">
+                    <h6>retour</h6>
+                </a>
+            </div>
+        </div>
+        <div class="row" style="margin: 0px 30px">
+            <div class="col-md-12">
+                <div class="d-flex align-items-start justify-content-center">
+                    <table class="table table-hover table-bordered " border="1" id="myTable">
+                        <thead style="position:sticky; top: 0;">
+                            <tr>
+                                <th>Code</th>
+                               
+                                <th>Titre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                            List<Ouvrage> livres = (List<Ouvrage>) request.getAttribute("theses");
+                                for (Ouvrage livre : livres) {
+                            %>
+                          <tr data-bs-toggle="modal" data-bs-target="#exampleModal"
+                           onclick="updateModal('<%= livre.getId_ouvrage() %>', '<%= livre.getTitre() %>', '<%= livre.getAuteur() %>',
+                            '<%= livre.getDescription() %>', '<%= livre.getAnnee() %>', '<%= livre.getDisponible() %>', '<%= livre.getType() %>',
+                             '<%= livre.getFaculte() %>', '<%= livre.getPromoteur() %>', '<%= livre.getIsbn() %>', '<%= livre.getPrix() %>')">
+    							<td><%= livre.getId_ouvrage() %></td>
+                              
+                                <td><%= livre.getTitre() %></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<h2 class="d-flex align-items-center justify-content-center home-hdr" style="margin: 0px; position: fixed; width: 100%">Liste des Theses disponibles</h2>
-
-
-<div class="row">
- <div class="col-md-8 ">
+    <!-- Modal -->
+    <div class="modal" id="exampleModal" aria-labelledby="exampleModalLabel" data-bs-backdrop="false" style="margin-top: 20px;position: relative; width: 50%; margin-right: 20px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                    <h3>Détail d'Ouvrage :</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                   
+                    <h6 id="modalData"></h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
  
-    <table class="table table-hover  table-bordered mt-5 ms-4" border="1">
-        <thead>
-            <tr>
-                <th>Code</th>
-                
-                <th>Titre</th>
-                
-            </tr>
-        </thead>
-         <tbody>
-        <%
-            List<Ouvrage> livres = (List<Ouvrage>) request.getAttribute("theses");
-            for (Ouvrage livre : livres) {
-        %>
-            <tr>
-                <td><%= livre.getId_ouvrage() %></td>
-                
-                <td><%= livre.getTitre() %></td>
-            </tr>
-             
-           
-        <%
-            }
-        %>
-    </tbody>
-    </table>
-  
-  </div>
-</div>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
  
   
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script> 
 </body>
 </html>

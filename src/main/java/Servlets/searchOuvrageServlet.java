@@ -24,20 +24,22 @@ public class searchOuvrageServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		List<Ouvrage> livres = Ouvrage.searchOuvrage(request.getParameter("keywords"));
-		 response.setContentType("text/html;charset=UTF-8");
+		String keyword=request.getParameter("keywords");
+		List<Ouvrage> livres = Ouvrage.searchOuvrage(keyword);
+			response.setContentType("text/html;charset=UTF-8");
 	        response.setCharacterEncoding("UTF-8");
-	         ///test////
+	        /* ///test////
 	        for (Ouvrage livre : livres) {
 	            System.out.println( livre.getTitre());
-	        }
+	        }*/
 	     // envoyer la list des livres as a request attribute
 	        request.setAttribute("livres", livres);
 
 	        // rediriger la requete vers livres.jsp
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("generalPages/searchResult.jsp");
 	        dispatcher.forward(request, response);
+	        
+		 
 		
 		
 	}

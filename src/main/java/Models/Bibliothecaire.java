@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import Utils.Connexion;
 
@@ -145,8 +147,48 @@ public class Bibliothecaire {
 		        return null;
 		    }
 		 
+		 public static List<Bibliothecaire> getAllBiblio() {
+			    List<Bibliothecaire> bibliothecaires = new ArrayList<>();
+			    Connexion co = new Connexion();
+
+			    try (Connection conn = co.ConnectBdd()) {
+			        if (conn != null) {
+			            String query = "SELECT * FROM `bibliothecaire`";
+
+			            try (PreparedStatement preparedStatement = conn.prepareStatement(query);
+			                 ResultSet resultSet = preparedStatement.executeQuery()) {
+
+			                while (resultSet.next()) {
+			                    Bibliothecaire bibliothecaire = new Bibliothecaire();
+			                    bibliothecaire.setId_utilisateur(resultSet.getInt("id_utilisateur"));
+			                    bibliothecaire.setNom_utilisateur(resultSet.getString("nom_utilisateur"));
+			                    bibliothecaire.setMot_de_pass(resultSet.getString("mot_de_pass"));
+			                    bibliothecaire.setNom(resultSet.getString("nom"));
+			                    bibliothecaire.setPrenom(resultSet.getString("prenom"));
+			                    bibliothecaire.setEmail(resultSet.getString("email"));
+			                    bibliothecaire.setAdresse(resultSet.getString("adresse"));
+			                    bibliothecaire.setNum_tel(resultSet.getString("num_tel"));
+			                    bibliothecaire.setDate_naiss(resultSet.getDate("date_naiss"));
+
+			                    bibliothecaires.add(bibliothecaire);
+			                }
+			            }
+			        } else {
+			            System.out.println("Connection is null. Check your configuration.");
+			        }
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			    }
+
+			    return bibliothecaires;
+			}
+
+      ///////test///////////////		 
 		 public static void main(String[] args) throws SQLException {
-			 
+			 List<Bibliothecaire> biblios =Bibliothecaire.getAllBiblio()
+;		        for (Bibliothecaire b : biblios) {
+		            System.out.println(b);
+		        }
 				System.out.print(verifyConnexion("biblio1", "motdepassebiblio1")); 
 			 }
 	    

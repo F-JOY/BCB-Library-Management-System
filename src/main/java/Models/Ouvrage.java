@@ -189,7 +189,8 @@ public class Ouvrage {
 
 	    ///////////////////recherche ouvrage par mot cle dans tous les attributs//////////////////////////
 		public static List<Ouvrage> searchOuvrage(String keyword) {
-		    List<Ouvrage> searchResults = new ArrayList<>();
+			if(keyword != null) {
+				List<Ouvrage> searchResults = new ArrayList<>();
 		    Connexion co = new Connexion();
 		    // Split the input keyword into individual words
 		    String[] keywords = keyword.trim().split("\\s+");
@@ -244,6 +245,10 @@ public class Ouvrage {
 		    }
 
 		    return null;
+			}else {
+				return null;
+			}
+		    
 		}
 
 

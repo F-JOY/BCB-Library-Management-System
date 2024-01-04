@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import Utils.Connexion;
 
@@ -163,10 +165,54 @@ public class Abonné {
 		        return null;
 		    }
 		
-		 
+
+		    public static List<Abonné> getAllAbonnés() {
+		        List<Abonné> abonnés = new ArrayList<>();
+		        Connexion co = new Connexion();
+
+		        try (Connection conn = co.ConnectBdd()) {
+		            if (conn != null) {
+		                String query = "SELECT * FROM `abonne`";
+
+		                try (PreparedStatement preparedStatement = conn.prepareStatement(query);
+		                     ResultSet resultSet = preparedStatement.executeQuery()) {
+
+		                    while (resultSet.next()) {
+		                        Abonné abonné = new Abonné();
+		                        abonné.setId_utilisateur(resultSet.getInt("id_utilisateur"));
+		                        abonné.setNom_utilisateur(resultSet.getString("nom_utilisateur"));
+		                        abonné.setMot_de_pass(resultSet.getString("mot_de_pass"));
+		                        abonné.setNom(resultSet.getString("nom"));
+		                        abonné.setPrenom(resultSet.getString("prenom"));
+		                        abonné.setGenre(resultSet.getString("genre"));
+		                        abonné.setAdresse(resultSet.getString("adresse"));
+		                        abonné.setEmail(resultSet.getString("email"));
+		                        abonné.setNum_tel(resultSet.getString("num_tel"));
+		                        abonné.setDate_naiss(resultSet.getDate("date_naiss"));
+		                        abonné.setType(resultSet.getString("type"));
+		                        abonné.setPaiementSF(resultSet.getBoolean("paiementSF"));
+		                        abonné.setPaiement(resultSet.getBoolean("paiement"));
+
+		                        abonnés.add(abonné);
+		                    }
+		                }
+		            } else {
+		                System.out.println("Connection is null. Check your configuration.");
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+
+		        return abonnés;
+		    }
+		    ///jeu de test///
 		 public static void main(String[] args) throws SQLException {
-			 
+			
 			System.out.print(verifyConnexion("abonne1", "motdepasse1")); 
+			 List<Abonné> abonnés = getAllAbonnés();
+		        for (Abonné abonné : abonnés) {
+		            System.out.println(abonné);
+		        }
 		 }
 	    
 }

@@ -38,6 +38,7 @@ public class login extends HttpServlet {
             	 // Authentification réussie, rediriger vers la page d'accueil du gestionnaire
                 HttpSession session = request.getSession();
                 session.setAttribute("gestionnaire", gestionnaire);
+                request.setAttribute("type", "admin");
                 request.setAttribute("gestionnaire", gestionnaire);
                // response.sendRedirect("adminPages/gestionnaire.jsp");
                 request.setAttribute("basePath", request.getContextPath());
@@ -54,6 +55,7 @@ public class login extends HttpServlet {
            	 // Authentification réussie, rediriger vers la page d'accueil du bibliothecaire
                HttpSession session = request.getSession();
                session.setAttribute("biblio",biblio);
+               session.setAttribute("type",  "biblio");
                request.setAttribute("biblio", biblio);
               // response.sendRedirect("biblioPages/biblioPanel.jsp");
                request.setAttribute("basePath", request.getContextPath());
@@ -70,6 +72,7 @@ public class login extends HttpServlet {
                 	 // Authentification réussie, rediriger vers la page d'accueil des abonnés
                     HttpSession session = request.getSession();
                     session.setAttribute("abonne",abonne);
+                    session.setAttribute("type","abonne");
                     request.setAttribute("abonne",abonne);
                    // response.sendRedirect("abonnéPages/AbonnePanel.jsp");
                     request.setAttribute("basePath", request.getContextPath());

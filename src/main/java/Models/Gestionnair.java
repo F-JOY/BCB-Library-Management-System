@@ -70,6 +70,7 @@ public class Gestionnair {
 		                        Gestionnair gestionnaire = new Gestionnair();
 		                        gestionnaire.setId_utilisateur(resultSet.getInt("id_utilisateur"));
 		                        gestionnaire.setNom_utilisateur(resultSet.getString("nom_utilisateur"));
+		                        gestionnaire.setMot_de_pass(resultSet.getString("mot_de_pass"));
 		                        gestionnaire.setNom(resultSet.getString("nom"));
 		                        gestionnaire.setPrenom(resultSet.getString("prenom"));
 		                        return gestionnaire;
