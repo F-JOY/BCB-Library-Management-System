@@ -5,6 +5,7 @@
    Abonné abonne = (Abonné) request.getAttribute("abonne");
    String type = (String) request.getAttribute("type");
    String genre = abonne.getGenre();
+   int ID =abonne.getId_utilisateur();
    boolean isEtu = true;
    if("enseignant".equals(abonne.getType())){
 	   genre =null;
@@ -65,19 +66,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto"> <!-- Updated class here -->
                 <li class="nav-item">
-                    <a class="nav-link active d-flex me-5" onclick="changeActive(this); ">
+                    <a class="nav-link active d-flex me-5" onclick="changeActive(this);getMesEmprunt() ">
                         <img src="${basePath}/images/mesEmprunt.png" alt="Abonnés" class="nav-icon mt-1 me-2" height="50px" width="48px">
                         <h4 class="mt-4"> Mes Emprunts</h4>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex me-5" onclick="changeActive(this);">
+                    <a class="nav-link d-flex me-5" onclick="changeActive(this); getMesReserves()">
                         <img src="${basePath}/images/reserve.png" alt="Bibliothèques" class="nav-icon mt-1 me-2" height="48px" width="48px">
                         <h4 class="mt-4">Mes Reservation</h1>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex" onclick="changeActive(this); ">
+                    <a class="nav-link d-flex" onclick="changeActive(this); getMesPenalty()">
                         <img src="${basePath}/images/no_book.png" alt="Pénalisation" class="nav-icon  me-2" height="55px" width="55px">
                         <h4 class="mt-4"> Mes Penalisations </h4>
                     </a>
@@ -87,6 +88,10 @@
     </div>
 </nav>
   
+  <div id="tableContainer" class="d-flex ligne-item-center justify-content-center " >
+
+
+</div>
   
   
   
@@ -94,7 +99,8 @@
  <script>
 var type = '<%=type%>' || null;
 var gnr = '<%= genre%>' || null;
-var isEtu = '<%= isEtu%>'|| null
+var isEtu = '<%= isEtu%>'|| null;
+var id = '<%= ID%>';
 if (type) {
     localStorage.setItem('type', type);  
     localStorage.setItem('genre', gnr); 
@@ -116,34 +122,34 @@ function changeActive(link) {
 	    // Add the 'active' class to the clicked link
 	    link.classList.add('active');
 }
-function getOuvrages(){
+function getMesEmprunt(){
 	var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("tableContainer").innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", "${basePath}/ouvrageServlet" , true);
+    xhttp.open("GET", "${basePath}/userEmprunServlet?ID=" + id, true);
     xhttp.send();
 }
-function getEmprunt(){
+function getMesPenalty(){
 	var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("tableContainer").innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", "${basePath}/empruntServlet" , true);
+    xhttp.open("GET", "${basePath}/userPenaltyServlet?ID=" + id, true);
     xhttp.send();
 }
-function getDemande(){
+function getMesReserves(){
 	var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("tableContainer").innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", "${basePath}/demandeServlet" , true);
+    xhttp.open("GET", "${basePath}/userReservServlet?ID=" + id, true);
     xhttp.send();
 }
 </script>

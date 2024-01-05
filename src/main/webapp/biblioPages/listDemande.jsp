@@ -13,7 +13,8 @@
 
 <div class="container-fluid mt-2">
     <div class="d-flex align-items-center justify-content-between">
-        <h4>Liste des Reservations</h4>
+        <a href="#" style="text-decoration: none"><h4>Demandes de Reservations</h4></a>
+         <a href="#" style="text-decoration: none"><h4>Demandes de Prolongation</h4></a>
     </div>
 
     <table class="table table-bordered">

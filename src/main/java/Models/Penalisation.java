@@ -85,11 +85,54 @@ public class Penalisation {
 
         return penalisations;
     }
-	
+	////////////////////////liste de penalite d'un utilisateur////////////////////////////////////////
+	public static List<Penalisation> getPenaltiesByUserID(String userID) {
+		 List<Penalisation> penalisations = new ArrayList<>();
+	        Connexion co = new Connexion();
+
+	        try (Connection conn = co.ConnectBdd()) {
+	            if (conn != null) {
+	                // Utilisez un PreparedStatement avec un paramètre pour filtrer par ID utilisateur
+	                String query = "SELECT p.*, a.* FROM penalisation p JOIN abonne a ON p.id_utilisateur = a.id_utilisateur WHERE p.id_utilisateur = ?";
+	                
+	                try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+	                    // Configurez le paramètre avec l'ID utilisateur
+	                    preparedStatement.setString(1, userID);
+
+	                    try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	                        while (resultSet.next()) {
+	                            Abonné abonne = new Abonné();
+	                            abonne.setId_utilisateur(resultSet.getInt("id_utilisateur"));
+	                            abonne.setNom_utilisateur(resultSet.getString("nom_utilisateur"));
+	                            abonne.setNom(resultSet.getString("nom"));
+	                            abonne.setPrenom(resultSet.getString("prenom"));
+	                            abonne.setType(resultSet.getString("type"));
+
+	                            Penalisation penalisation = new Penalisation();
+	                            penalisation.setId_penalisation(resultSet.getInt("id_penalisation"));
+	                            penalisation.setDate_debut(resultSet.getDate("date_debut"));
+	                            penalisation.setDate_fin(resultSet.getDate("date_fin"));
+	                            penalisation.setAbonne(abonne);
+
+	                            penalisations.add(penalisation);
+	                        }
+	                    }
+	                }
+	            } else {
+	                System.out.println("Connection is null. Check your configuration.");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return penalisations;
+	    }
 	
 	///////////////test////////////////////
 	public static void main(String[] args) {
-	    List<Penalisation> penalisations = getAllPenalisationsWithUsers();
+		
+		///////////////test get all penalisation///////////////
+	   /* List<Penalisation> penalisations = getAllPenalisationsWithUsers();
 	    for (Penalisation penalisation : penalisations) {
 	        System.out.println("Penalisation ID: " + penalisation.getId_penalisation());
 	        System.out.println("Start Date: " + penalisation.getDate_debut());
@@ -101,8 +144,26 @@ public class Penalisation {
 	        // Print other Abonné fields as needed
 
 	        System.out.println("----------------------------------------");
-	    }
-	}
+	    }*/
+		////////////////////////////test get user penalisation///////////////////////
+		 String testUserID = "3";
+
+	        // Appelez la méthode pour obtenir les pénalités associées à l'utilisateur spécifié
+	        List<Penalisation> userPenalties = getPenaltiesByUserID(testUserID);
+
+	        // Affichez les résultats
+	        for (Penalisation penalisation : userPenalties) {
+	            System.out.println("Penalisation ID: " + penalisation.getId_penalisation());
+	            System.out.println("Start Date: " + penalisation.getDate_debut());
+	            System.out.println("End Date: " + penalisation.getDate_fin());
+
+	            Abonné abonne = penalisation.getAbonne();
+	            System.out.println("Nom d'utilisateur: " + abonne.getNom_utilisateur());
+	            // Print other Abonné fields as needed
+
+	            System.out.println("----------------------------------------");
+	        
+	}}
 
 	
     
