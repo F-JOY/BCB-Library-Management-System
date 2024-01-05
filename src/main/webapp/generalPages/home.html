@@ -18,7 +18,7 @@
     <input type="hidden" id="nomInput" name="username" value="">
     <input type="hidden" id="passwordInput" name="password" value="">
     <button type="submit" class="account" style="display: none;"> 
-        <img src="../images/adminAccount.png" class="account_img">
+        <img src="../images/account.png" class="account_img">
     </button>
 </form>
   <a href="login.html" class="ms-auto me-4">
@@ -59,12 +59,37 @@
     document.addEventListener("DOMContentLoaded", function() {
       // Check if the 'type' is present in local storage
       var type = localStorage.getItem('type');
+      var gnr = localStorage.getItem('genre');
+      var isEtu =localStorage.getItem('isEtu');
       var loginButton = document.querySelector('.cta');
-      var acountBtn = document.querySelector('.account')
-      if (type) {
+      var acountBtn = document.querySelector('.account');
+      var avatar= document.querySelector('.account_img')
+      if (type === 'admin') {
+    loginButton.remove();
+    acountBtn.style.display = 'flex';
+    avatar.src = '../images/adminAccount.png';
+} else if (type === 'biblio') {
+    loginButton.remove();
+    acountBtn.style.display = 'flex';
+    avatar.src = '../images/librarianAccount.png';
+} else if (type === 'abonne') {
+  		  if (isEtu === 'false') {
         loginButton.remove();
-        acountBtn.style.display='flex';
-      }
+        acountBtn.style.display = 'flex';
+        avatar.src = '../images/teach.png';
+    } else if (isEtu === 'true') {
+         if (gnr === 'male') {
+        loginButton.remove();
+        acountBtn.style.display = 'flex';
+        avatar.src = '../images/maleAccount.png';
+    } else if (gnr === 'femelle') {
+        loginButton.remove();
+        acountBtn.style.display = 'flex';
+        avatar.src = '../images/femaleAccount.png';
+    }
+    }
+} 
+
     });
     function getParameterByName(name, url) {
             if (!url) url = window.location.href;

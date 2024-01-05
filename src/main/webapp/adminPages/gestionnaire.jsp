@@ -157,6 +157,23 @@
              xhttp.open("GET", "${basePath}/penaltyServlet" , true);
              xhttp.send();
          }
+         function refuserPenalite(penaliteId) {
+             console.log("Refuser Penalite ID: " + penaliteId);
+             var row = document.getElementById("penaltyRow_" + penaliteId);
+             if (row) {
+                 row.remove();
+             }
+         }
+         function validerTout() {
+             // Ajouter le code pour valider toutes les pénalités ici
+             console.log("Validation de toutes les pénalités");
+
+             // Modifier l'icône de toutes les lignes vers check.png
+             var imageButtons = document.querySelectorAll('.image-buttons img');
+             imageButtons.forEach(function (img) {
+                 img.src = '${basePath}/images/check.png';
+             });
+         }
          
 </script>
 

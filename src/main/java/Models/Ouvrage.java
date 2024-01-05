@@ -251,10 +251,36 @@ public class Ouvrage {
 		    
 		}
 
+	    ///////////////////////// Affichage de tous les ouvrages ///////////////////////
+	    public static List<Ouvrage> getAllOuvrages() {
+	        List<Ouvrage> ouvrages = new ArrayList<>();
+	        Connexion co = new Connexion();
 
+	        try (Connection conn = co.ConnectBdd()) {
+	            if (conn != null) {
+	                String query = "SELECT * FROM `ouvrage`";
+
+	                try (PreparedStatement preparedStatement = conn.prepareStatement(query);
+	                     ResultSet resultSet = preparedStatement.executeQuery()) {
+
+	                    while (resultSet.next()) {
+	                        Ouvrage ouvrage = mapResultSetToOuvrage(resultSet);
+	                        ouvrages.add(ouvrage);
+	                    }
+	                }
+	            } else {
+	                System.out.println("Connection is null. Check your configuration.");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return ouvrages;
+	    }
 
    public static void main(String[] args) throws SQLException {
 		 String n = "exactes Livre";
 		System.out.println(searchOuvrage(n)); 
+		 System.out.println(getAllOuvrages());
 	 }
 }
