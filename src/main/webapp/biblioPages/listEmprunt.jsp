@@ -14,41 +14,75 @@
 <div class="container-fluid mt-2">
     <div class="d-flex align-items-center-center justify-content-between">
         <h4>Liste des Emprunts</h4>
+         <img alt="" src="${basePath}/images/addEmprunt.png" height="30px" width="30px" data-bs-toggle="modal" data-bs-target="#exampleModal">
     </div>
 
-    <table class="table table-hover table-bordered">
+    <table class="table  table-bordered">
         <thead>
         <tr>
-            <th>ID Emprunt</th>
-            <th>ID Ouvrage</th>
-            <th>Titre Ouvrage</th>
-            <th>ID Utilisateur</th>
-            <th>Nom Utilisateur</th>
+            <th>ID </th>
+           
+            <th> Ouvrage</th>
+           
+            
             <th>Nom et Prénom</th>
             <th>Date Début</th>
             <th>Date Restitution</th>
+            <th></th>
         </tr>
         </thead>
-        <tbody>
-        <% List<Emprunt> emprunts = (List<Emprunt>) request.getAttribute("emprunts");
-            if (emprunts != null) {
-                for (Emprunt emprunt : emprunts) { %>
-                    <tr>
-                        <td><%= emprunt.getId_emprunt() %></td>
-                        <td><%= emprunt.getOuvrage().getId_ouvrage() %></td>
-                        <td><%= emprunt.getOuvrage().getTitre() %></td>
-                        <td><%= emprunt.getAbonne().getId_utilisateur() %></td>
-                        <td><%= emprunt.getAbonne().getNom_utilisateur() %></td>
-                        <td><%= emprunt.getAbonne().getNom() + " " + emprunt.getAbonne().getPrenom() %></td>
-                        <td><%= emprunt.getDate_debut() %></td>
-                        <td><%= emprunt.getDate_restitution() %></td>
-                    </tr>
-                <% }
-            } %>
-        </tbody>
+       <tbody>
+    <% 
+        List<Emprunt> emprunts = (List<Emprunt>) request.getAttribute("emprunts");
+        if (emprunts != null) {
+            for (Emprunt emprunt : emprunts) { 
+                // Get the current date
+                java.util.Date currentDate = new java.util.Date();
+
+                // Compare the date of restitution with the current date
+                boolean isDateInPast = emprunt.getDate_restitution().before(currentDate);
+
+                // Set the CSS class based on the condition
+                String cssClass = isDateInPast ? "text-danger" : "";
+
+    %>
+    <tr>
+        <td class="align-middle"><%= emprunt.getId_emprunt() %></td>  
+        <td class="align-middle">
+            <div class="d-flex align-items-center">
+                <h5 class=""><%= emprunt.getOuvrage().getId_ouvrage()+" :" %></h5>
+                <p class="ms-3 mt-2 "> <%= emprunt.getOuvrage().getTitre() %></p>
+            </div>
+        </td>     
+        <td class="align-middle"><%= emprunt.getAbonne().getNom() + " " + emprunt.getAbonne().getPrenom() %></td>
+        <td class="align-middle"><%= emprunt.getDate_debut() %></td>
+        <td class="<%= cssClass %> align-middle"><%= emprunt.getDate_restitution() %></td>
+        <td class="align-middle">
+            <button type="button" class="btn btn-primary ms-4">Restituer</button>
+        </td>
+    </tr>
+    <% }
+    } %>
+</tbody>
     </table>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter Emprunt</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 </body>
