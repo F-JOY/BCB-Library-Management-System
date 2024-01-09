@@ -13,15 +13,17 @@ import Utils.Connexion;
 public class Emprunt {
 	private int id_emprunt;
     private Date date_debut;
+    private boolean prolongation; 
     private Date date_restitution;
     private Abonné abonne;
     private Ouvrage ouvrage;
 	public Emprunt() {
 	}
-	public Emprunt(int id_emprunt, Date date_debut, Date date_restitution, Abonné abonne, Ouvrage ouvrage) {
+	public Emprunt(int id_emprunt, Date date_debut,boolean prolongation, Date date_restitution, Abonné abonne, Ouvrage ouvrage) {
 		
 		this.id_emprunt = id_emprunt;
 		this.date_debut = date_debut;
+		this.prolongation=prolongation;
 		this.date_restitution = date_restitution;
 		this.abonne = abonne;
 		this.ouvrage = ouvrage;
@@ -32,6 +34,13 @@ public class Emprunt {
 	public void setId_emprunt(int id_emprunt) {
 		this.id_emprunt = id_emprunt;
 	}
+	public boolean isProlongation() {
+		return prolongation;
+	}
+	public void setProlongation(boolean prolongation) {
+		this.prolongation = prolongation;
+	}
+	
 	public Date getDate_debut() {
 		return date_debut;
 	}
@@ -103,10 +112,57 @@ public class Emprunt {
 
         return empruntsDetails;
     }
+	 public static List<Emprunt> getEmpruntsProlonges() {
+	        List<Emprunt> empruntsProlonges = new ArrayList<>();
+	        Connexion co = new Connexion();
+
+	        try (Connection conn = co.ConnectBdd()) {
+	            if (conn != null) {
+	            	String query = "SELECT e.id_emprunt, e.date_debut, e.date_restitution, e.prolongation, " +
+	                        "o.id_ouvrage, o.titre, " +
+	                        "a.id_utilisateur, a.nom_utilisateur, a.nom, a.prenom " +
+	                        "FROM emprunt e " +
+	                        "JOIN ouvrage o ON e.id_ouvrage = o.id_ouvrage " +
+	                        "JOIN abonne a ON e.id_utilisateur = a.id_utilisateur " +
+	                        "WHERE e.prolongation = true";
+
+
+	                try (PreparedStatement preparedStatement = conn.prepareStatement(query);
+	                     ResultSet resultSet = preparedStatement.executeQuery()) {
+
+	                    while (resultSet.next()) {
+	                        Emprunt empruntProlonge = new Emprunt();
+	                        empruntProlonge.setId_emprunt(resultSet.getInt("id_emprunt"));
+	                        empruntProlonge.setDate_debut(resultSet.getDate("date_debut"));
+	                        empruntProlonge.setDate_restitution(resultSet.getDate("date_restitution"));
+	                        empruntProlonge.setProlongation(resultSet.getBoolean("prolongation"));
+	                        Ouvrage ouvrage = new Ouvrage();
+	                        ouvrage.setId_ouvrage(resultSet.getInt("id_ouvrage"));
+	                        ouvrage.setTitre(resultSet.getString("titre"));
+	                        empruntProlonge.setOuvrage(ouvrage);
+
+	                        Abonné abonne = new Abonné();
+	                        abonne.setId_utilisateur(resultSet.getInt("id_utilisateur"));
+	                        abonne.setNom_utilisateur(resultSet.getString("nom_utilisateur"));
+	                        abonne.setNom(resultSet.getString("nom"));
+	                        abonne.setPrenom(resultSet.getString("prenom"));
+	                        empruntProlonge.setAbonne(abonne);
+	                        empruntsProlonges.add(empruntProlonge);
+	                    }
+	                }
+	            } else {
+	                System.out.println("Connection is null. Check your configuration.");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return empruntsProlonges;
+	    }
 
 	 public static void main(String[] args) {
 	        // Fetch the list of emprunts with details
-	        List<Emprunt> empruntsDetails = Emprunt.getAllEmpruntsDetails();
+	       /* List<Emprunt> empruntsDetails = Emprunt.getAllEmpruntsDetails();
 
 	        // Display the retrieved details
 	        for (Emprunt empruntDetails : empruntsDetails) {
@@ -124,7 +180,9 @@ public class Emprunt {
 	            System.out.println("Nom et prénom: " + abonne.getNom() + " " + abonne.getPrenom());
 
 	            System.out.println("--------------------------------");
-	        }
+	        }*/
+		 System.out.print(getEmpruntsProlonges());
+		 
 	    }
     
 }

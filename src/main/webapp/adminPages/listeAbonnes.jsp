@@ -47,19 +47,33 @@
             <% List<Abonné> abonnés = (List<Abonné>) request.getAttribute("abonnes");
                 if (abonnés != null) {
                     for (Abonné abonné : abonnés) { %>
-                        <tr>
+                        <tr class="align-middle" id="userRow_<%= abonné.getId_utilisateur()%>">
                             <td><%= abonné.getId_utilisateur() %></td>
                             <td><%= abonné.getType() %></td>
                             <td data-bs-toggle="tooltip" data-bs-placement="top" title="PSW : <%= abonné.getMot_de_pass() %>">
                             <%= abonné.getNom_utilisateur() %></td>
-                            <td><%= abonné.getNom() + " " + abonné.getPrenom() %></td>
+                            <td ><%= abonné.getNom() + " " + abonné.getPrenom() %></td>
                             <td><%= abonné.getDate_naiss() %></td>
                             <td><%= abonné.getNum_tel() %></td>
                             <td><%= abonné.getAdresse() %></td>
                             <td><%= abonné.getEmail() %></td>
                             <td> 
                            <button class="image-buttons"><img alt="edit" src="${basePath}/images/edit.png" height="24px" width="24px"></button>
-						<button class="image-buttons"><img alt="delete" src="${basePath}/images/delete.png" height="24px" width="24px"></button>
+						   <button class="image-buttons"><img alt="delete" src="${basePath}/images/delete.png" height="24px" width="24px" data-bs-toggle="modal" data-bs-target="#exampleModal2"></button>
+                              <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  									<div class="modal-dialog">
+   									 <div class="modal-content">
+     								 <div class="modal-body">
+    								   voulez-vous supprimer cet utilisateur ?
+    								 </div>
+     								 <div class="modal-footer">
+        							<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="deleteUser(<%= abonné.getId_utilisateur()%>)">oui</button>
+       							    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">non</button>
+      								</div>
+   								 </div>
+ 							 	</div>
+								</div>
+               
                             </td>
                             
                         </tr>
@@ -77,7 +91,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
      
-
 <div class="modal-body">
   
   <form id="addAbonneForm">

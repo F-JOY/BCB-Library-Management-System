@@ -174,6 +174,12 @@
                  img.src = '${basePath}/images/check.png';
              });
          }
+         function deleteUser(userID){
+        	 var row = document.getElementById("userRow_" + userID);
+             if (row) {
+                 row.remove();
+             }
+         }
          
 </script>
 

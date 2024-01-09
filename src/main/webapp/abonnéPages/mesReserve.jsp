@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>mes reservations</h1>
+<h1>Aucune reservation effectuer</h1>
 </body>
 </html>

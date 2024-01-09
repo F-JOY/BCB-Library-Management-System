@@ -68,14 +68,27 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter Emprunt</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form action="">
+        <div class="row mb-3">
+      <label for="nom_utilisateur" class="col-sm-3 col-form-label">Nom d'utilisateur :</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="nom_utilisateur" name="nom_utilisateur" required>
+      </div>
+    </div>
+	    <div class="row mb-3">
+      <label for="password" class="col-sm-3 col-form-label">Code ouvrage :</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="password" name="password" required>
+      </div>
+    </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">Ajouter</button>

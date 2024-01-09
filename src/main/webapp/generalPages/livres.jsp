@@ -65,10 +65,10 @@
                    
                     <h6 id="modalData"></h6>
                 </div>
-                <div class="modal-footer">
-                    
-                    <button type="button" class="btn btn-primary">reserver</button>
-                </div>
+                <div class="d-flex align-items-center justify-content-between mx-3">
+    					<h6 class="error-message" style="color: red; display: none;">Vous devez être connecté</h6>
+    					<button type="button" class="btn btn-primary mb-2" onclick="reserve()">Reserver</button>
+					</div> 
             </div>
         </div>
     </div>

@@ -43,7 +43,7 @@
 
                 // Détermination de la couleur de fond en fonction de la date de fin
                  String backgroundColor = isDateInFuture ? "#93BCEC" : "#DBE6E6";
-                 String etat = isDateInFuture ? "en cours" : "Terminer";
+                 String etat = isDateInFuture ? "En cours" : "Terminer";
 
         %>
         <div class="row mb-3 d-flex align-items-center" style="border-radius: 10px; border: 2px solid #4B91F1; background-color: <%= backgroundColor %>;">

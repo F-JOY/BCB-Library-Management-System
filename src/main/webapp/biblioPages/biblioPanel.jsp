@@ -137,6 +137,20 @@ function getDemande(){
     xhttp.open("GET", "${basePath}/demandeServlet" , true);
     xhttp.send();
 }
+function showReservationTable() {
+    document.getElementById("tablereservation").style.display = "block";
+    document.getElementById("tableProlongation").style.display = "none";
+    document.getElementById("reservLink").style.textDecoration = "underline";
+    document.getElementById("prolLink").style.textDecoration = "none";
+
+}
+
+function showProlongationTable() {
+    document.getElementById("tablereservation").style.display = "none";
+    document.getElementById("tableProlongation").style.display = "block";
+    document.getElementById("reservLink").style.textDecoration = "none";
+    document.getElementById("prolLink").style.textDecoration = "underline";
+}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script> 
  

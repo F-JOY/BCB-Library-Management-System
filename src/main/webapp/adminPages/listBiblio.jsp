@@ -48,7 +48,7 @@
         <% List<Bibliothecaire> bibliothecaires = (List<Bibliothecaire>) request.getAttribute("bibliothecaires");
            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
            for (Bibliothecaire bibliothecaire : bibliothecaires) { %>
-            <tr>
+            <tr id="userRow_<%= bibliothecaire.getId_utilisateur()%>">
                 <td><%= bibliothecaire.getId_utilisateur() %></td>
                 <td data-bs-toggle="tooltip" data-bs-placement="top" title="PSW : <%= bibliothecaire.getMot_de_pass() %>">
                 <%= bibliothecaire.getNom_utilisateur() %>
@@ -58,11 +58,25 @@
                 <td><%= bibliothecaire.getNum_tel() %></td>
                 <td><%= bibliothecaire.getAdresse() %></td>
                 <td><%= bibliothecaire.getEmail() %></td>
-                <td> 
-                  <button class="image-buttons"><img alt="edit" src="${basePath}/images/edit.png" height="24px" width="24px"></button>
-				  <button class="image-buttons"><img alt="delete" src="${basePath}/images/delete.png" height="24px" width="24px"></button>
-                </td>
-            </tr>
+               <td> 
+                           <button class="image-buttons"><img alt="edit" src="${basePath}/images/edit.png" height="24px" width="24px"></button>
+						   <button class="image-buttons"><img alt="delete" src="${basePath}/images/delete.png" height="24px" width="24px" data-bs-toggle="modal" data-bs-target="#exampleModal2"></button>
+                              <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  									<div class="modal-dialog">
+   									 <div class="modal-content">
+     								 <div class="modal-body">
+    								   voulez-vous supprimer cet utilisateur ?
+    								 </div>
+     								 <div class="modal-footer">
+        							<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="deleteUser(<%= bibliothecaire.getId_utilisateur()%>)">oui</button>
+       							    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">non</button>
+      								</div>
+   								 </div>
+ 							 	</div>
+								</div>
+               
+                            </td>
+           				 </tr>
         <% } %>
         </tbody>
     </table>

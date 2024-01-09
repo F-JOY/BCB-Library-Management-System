@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Models.Emprunt;
 import Models.reservation;
 
 /**
@@ -33,7 +34,10 @@ public class demandeServlet extends HttpServlet {
         List<reservation> reservationDetails = reservationModel.getAllReservationDetails();
         System.out.println(reservationDetails.size());
         request.setAttribute("reservationDetails", reservationDetails);
-
+        Emprunt emprunt = new Emprunt();
+		List<Emprunt>emprunProlanger=emprunt.getEmpruntsProlonges();
+		 System.out.println("la taille des emprunt prol"+emprunProlanger.size());
+		request.setAttribute("empruntProlangés", emprunProlanger);
 			 RequestDispatcher dispatcher = request.getRequestDispatcher("biblioPages/listDemande.jsp");
 	         dispatcher.forward(request, response);
 	}
